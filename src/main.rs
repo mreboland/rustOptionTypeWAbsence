@@ -66,5 +66,35 @@ fn main() {
         };
     };
 
+    // Note:
+    // The first pattern in the match is Some(&"coconut") (note the & before the string literal). This is because fruits.get(index) returns an Option<&&str> or an option of a reference to a string slice. Removing & in the pattern would mean we are trying to match against an Option<&str> (an optional string slice NOT and optional reference to a string slice). References haven't been covered yet, so for now, just remember that the & is making sure the types line up properly.
+
+    // When the string value is "coconut", the first arm is matched and then used to determine the flow of execution.
+
+    // Whenever you use the match expression, keep the following rules in mind:
+
+    // match arms are evaluated from top to bottom. Specific cases must be defined earlier than generic cases or they'll never be matched and evaluated.
+    // match arms must cover every possible value that the input type could have. You'll get a compiler error if you try to match against a non-exhaustive pattern list.
+
+    // THE IF LET EXPRESSION
+
+    // Rust offers a convenient way to test whether a value confirm with a single pattern.
+
+    // The following example, which matches on an Option<u8> value but wants to execute code only if the value is 7.
+
+    let some_number: Option<u8> = Some(7);
+    match some_number {
+        Some(7) => println!("That's my lucky number!"),
+        _ => {},
+    };
+
+    // We want to do something with the Some(7) match but ignore other Some<u8> values or the None variant. We can add the _ (underscore) wildcard pattern after all other patterns to match anything else, and it's used to satisfy the compiler demands for exhausting match arms.
+
+    // Writing the above code in a shorter way using if let expression.
+    if let Some(7) = some_number {
+        println!("That's my lucky number!");
+    };
+
+    // An if let expression takes a pattern and an expression separated by an equal sign. If the pattern matches, the if block is executed. The nice thing about if let expressions is that you don't need all the boilerplate code of a match expression when we're interested in a single pattern to match against.
 
 }
