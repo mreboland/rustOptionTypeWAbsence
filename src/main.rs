@@ -97,4 +97,31 @@ fn main() {
 
     // An if let expression takes a pattern and an expression separated by an equal sign. If the pattern matches, the if block is executed. The nice thing about if let expressions is that you don't need all the boilerplate code of a match expression when we're interested in a single pattern to match against.
 
+    // USE UNWRAP AND EXPECT
+
+    // We can try to access the inner value of an Option type directly by using the unwrap method. Be careful though, because this method will panic if the variant is a None.
+
+    let gift = Some("candy");
+    assert_eq!(gift.unwrap(), "candy");
+
+    let empty_gift: Option<&str> = None;
+    // assert_eq!(empty_gift.unwrap(), "candy"); // This will panic!
+
+    // The code above will panic giving us a thread 'main' panicked at... error.
+
+    // The expect method does the same as unwrap, but it provided a custom panic message that's provided by its second argument.
+
+    let a = Some("value");
+    assert_eq!(a.expect("fruits are healthy"), "value");
+
+    let b: Option<&str> = None;
+    // b.expect("fruits are healthy"); // panics with 'fruits are healthy'
+
+    // Because the above functions might panic, we don't recommend using them. Instead, consider either of the following approached:
+
+    // Use pattern matching and handle the None case explicitly.
+    // Call similar non-panicking methods such as unwrap_or, which return a default value if the variant is None, or the inner value if the variant is Some(value).
+
+    assert_eq!(Some("dog").unwrap_or("cat"), "dog");
+    assert_eq!(None.unwrap_or("cat"), "cat");
 }
